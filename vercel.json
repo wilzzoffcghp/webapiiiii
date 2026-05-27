@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/orderkuota/:path*",
-      "destination": "/api/orderkuota/:path*"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
