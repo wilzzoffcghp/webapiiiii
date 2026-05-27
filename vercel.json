@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/orderkuota/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/orderkuota/:path*",
