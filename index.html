@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wilzz API - Orderkuota Docs</title>
+    <title>VVIP REST API - Orderkuota Gateway</title>
     <style>
         * {
             margin: 0;
@@ -36,7 +36,7 @@
 
         .logo h1 {
             font-size: 2rem;
-            background: linear-gradient(135deg, #00ff9d, #00d2ff);
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -58,7 +58,7 @@
         }
 
         .stats span {
-            color: #00ff9d;
+            color: #ffd700;
             font-weight: bold;
         }
 
@@ -104,8 +104,8 @@
         }
 
         .card:hover {
-            border-color: #00ff9d;
-            box-shadow: 0 4px 20px rgba(0, 255, 157, 0.1);
+            border-color: #ffd700;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
         }
 
         .card-header {
@@ -124,7 +124,7 @@
             border-radius: 30px;
             font-size: 0.7rem;
             background: #1f2a3e;
-            color: #00ff9d;
+            color: #ffd700;
         }
 
         .endpoint-url {
@@ -134,6 +134,21 @@
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             color: #cbd5e6;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #2a2f3a;
+            border: none;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            color: #ccc;
+        }
+        .copy-btn:hover {
+            background: #3a3f4a;
         }
 
         .card-body {
@@ -166,7 +181,7 @@
         }
 
         input:focus {
-            border-color: #00ff9d;
+            border-color: #ffd700;
         }
 
         button {
@@ -195,7 +210,7 @@
             font-family: monospace;
             font-size: 0.75rem;
             overflow-x: auto;
-            border-left: 3px solid #00ff9d;
+            border-left: 3px solid #ffd700;
         }
 
         .response-title {
@@ -211,6 +226,20 @@
             font-family: monospace;
         }
 
+        .example-link {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            background: #1a1e26;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            word-break: break-all;
+            color: #aaa;
+        }
+        .example-link a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -218,11 +247,6 @@
             color: #4b5563;
             border-top: 1px solid #1f2937;
             padding-top: 1.5rem;
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
         }
 
         @media (max-width: 700px) {
@@ -236,7 +260,7 @@
 <div class="container">
     <div class="header">
         <div class="logo">
-            <h1>⚡ Wilzz API · Orderkuota</h1>
+            <h1>⭐ VVIP REST API · Orderkuota</h1>
             <p>Proxy Gateway & Documentation — REST API v1.0.0</p>
         </div>
         <div class="stats">
@@ -252,7 +276,7 @@
             <span class="terminal-dot yellow"></span>
             <span class="terminal-dot green"></span>
         </div>
-        <div>root@wilzz:~$ search endpoints...</div>
+        <div>root@vvip:~$ search endpoints...</div>
         <div style="margin-left: auto;">bash — 120x40</div>
     </div>
 
@@ -261,23 +285,28 @@
         <div class="card">
             <div class="card-header">
                 <span class="method">GET</span>
-                <span class="endpoint-url">/api/orderkuota/getotp</span>
+                <span class="endpoint-url" id="otp_url_display">/api/orderkuota/getotp</span>
+                <button class="copy-btn" onclick="copyToClipboard('otp_url_display')">Salin URL</button>
             </div>
             <div class="card-body">
-                <h3 style="margin-bottom: 0.8rem; color: #00ff9d;">📲 Get OTP (tahap 1)</h3>
+                <h3 style="margin-bottom: 0.8rem; color: #ffd700;">📲 Get OTP (tahap 1)</h3>
                 <div class="input-group">
                     <label>apikey *</label>
-                    <input type="text" id="otp_apikey" placeholder="Masukkan API key" value="sanz">
+                    <input type="text" id="otp_apikey" placeholder="Masukkan API key Anda">
                 </div>
                 <div class="input-group">
                     <label>username *</label>
-                    <input type="text" id="otp_username" placeholder="Masukkan username" value="inivirgi">
+                    <input type="text" id="otp_username" placeholder="Masukkan username">
                 </div>
                 <div class="input-group">
                     <label>password *</label>
-                    <input type="text" id="otp_password" placeholder="Masukkan password" value="Wilzz">
+                    <input type="text" id="otp_password" placeholder="Masukkan password">
                 </div>
                 <button onclick="callEndpoint('getotp')">🚀 Execute Request</button>
+                
+                <div class="example-link" id="otp_example_link">
+                    🔗 Contoh URL: <span id="otp_example_url">-</span>
+                </div>
                 <div class="response-area">
                     <div class="response-title">📋 Response</div>
                     <pre id="resp_getotp">-</pre>
@@ -289,23 +318,27 @@
         <div class="card">
             <div class="card-header">
                 <span class="method">GET</span>
-                <span class="endpoint-url">/api/orderkuota/gettoken</span>
+                <span class="endpoint-url" id="token_url_display">/api/orderkuota/gettoken</span>
+                <button class="copy-btn" onclick="copyToClipboard('token_url_display')">Salin URL</button>
             </div>
             <div class="card-body">
-                <h3 style="margin-bottom: 0.8rem; color: #00ff9d;">🔑 Get Token (tahap 2)</h3>
+                <h3 style="margin-bottom: 0.8rem; color: #ffd700;">🔑 Get Token (tahap 2)</h3>
                 <div class="input-group">
                     <label>apikey *</label>
-                    <input type="text" id="token_apikey" placeholder="Masukkan API key" value="sanz">
+                    <input type="text" id="token_apikey" placeholder="Masukkan API key">
                 </div>
                 <div class="input-group">
                     <label>username *</label>
-                    <input type="text" id="token_username" placeholder="Masukkan username" value="inivirgi">
+                    <input type="text" id="token_username" placeholder="Masukkan username">
                 </div>
                 <div class="input-group">
                     <label>otp *</label>
                     <input type="text" id="token_otp" placeholder="OTP dari tahap 1">
                 </div>
                 <button onclick="callEndpoint('gettoken')">🚀 Execute Request</button>
+                <div class="example-link" id="token_example_link">
+                    🔗 Contoh URL: <span id="token_example_url">-</span>
+                </div>
                 <div class="response-area">
                     <div class="response-title">📋 Response</div>
                     <pre id="resp_gettoken">-</pre>
@@ -317,17 +350,18 @@
         <div class="card">
             <div class="card-header">
                 <span class="method">GET</span>
-                <span class="endpoint-url">/api/orderkuota/createpayment</span>
+                <span class="endpoint-url" id="qr_url_display">/api/orderkuota/createpayment</span>
+                <button class="copy-btn" onclick="copyToClipboard('qr_url_display')">Salin URL</button>
             </div>
             <div class="card-body">
-                <h3 style="margin-bottom: 0.8rem; color: #00ff9d;">💳 Create QRIS Payment</h3>
+                <h3 style="margin-bottom: 0.8rem; color: #ffd700;">💳 Create QRIS Payment</h3>
                 <div class="input-group">
                     <label>apikey *</label>
-                    <input type="text" id="qr_apikey" placeholder="Masukkan API key" value="sanz">
+                    <input type="text" id="qr_apikey" placeholder="Masukkan API key">
                 </div>
                 <div class="input-group">
                     <label>username *</label>
-                    <input type="text" id="qr_username" placeholder="Masukkan username" value="inivirgi">
+                    <input type="text" id="qr_username" placeholder="Masukkan username">
                 </div>
                 <div class="input-group">
                     <label>token *</label>
@@ -335,9 +369,12 @@
                 </div>
                 <div class="input-group">
                     <label>amount *</label>
-                    <input type="number" id="qr_amount" placeholder="Nominal" value="1000">
+                    <input type="number" id="qr_amount" placeholder="Nominal">
                 </div>
                 <button onclick="callEndpoint('createqr')">🚀 Execute Request</button>
+                <div class="example-link" id="qr_example_link">
+                    🔗 Contoh URL: <span id="qr_example_url">-</span>
+                </div>
                 <div class="response-area">
                     <div class="response-title">📋 Response</div>
                     <pre id="resp_createqr">-</pre>
@@ -349,23 +386,27 @@
         <div class="card">
             <div class="card-header">
                 <span class="method">GET</span>
-                <span class="endpoint-url">/api/orderkuota/mutasiqr</span>
+                <span class="endpoint-url" id="mutasi_url_display">/api/orderkuota/mutasiqr</span>
+                <button class="copy-btn" onclick="copyToClipboard('mutasi_url_display')">Salin URL</button>
             </div>
             <div class="card-body">
-                <h3 style="margin-bottom: 0.8rem; color: #00ff9d;">📊 Cek Mutasi QRIS</h3>
+                <h3 style="margin-bottom: 0.8rem; color: #ffd700;">📊 Cek Mutasi QRIS</h3>
                 <div class="input-group">
                     <label>apikey *</label>
-                    <input type="text" id="mutasi_apikey" placeholder="Masukkan API key" value="sanz">
+                    <input type="text" id="mutasi_apikey" placeholder="Masukkan API key">
                 </div>
                 <div class="input-group">
                     <label>username *</label>
-                    <input type="text" id="mutasi_username" placeholder="Masukkan username" value="inivirgi">
+                    <input type="text" id="mutasi_username" placeholder="Masukkan username">
                 </div>
                 <div class="input-group">
                     <label>token *</label>
                     <input type="text" id="mutasi_token" placeholder="Token dari getToken">
                 </div>
                 <button onclick="callEndpoint('mutasi')">🚀 Execute Request</button>
+                <div class="example-link" id="mutasi_example_link">
+                    🔗 Contoh URL: <span id="mutasi_example_url">-</span>
+                </div>
                 <div class="response-area">
                     <div class="response-title">📋 Response</div>
                     <pre id="resp_mutasi">-</pre>
@@ -375,19 +416,102 @@
     </div>
 
     <footer>
-        <p>Wilzz API Gateway © 2026 — Proxy to Orderkuota Official API | Response sama persis dengan sumber</p>
-        <p style="margin-top: 0.5rem;">🔗 Base URL: https://wilzz-orderkuota-api.vercel.app</p>
+        <p>VVIP REST API Gateway © 2026 — Proxy to Orderkuota Official API | Response sama persis dengan sumber</p>
+        <p style="margin-top: 0.5rem;">🔗 Base URL: https://vvip-rest-api.vercel.app</p>
     </footer>
 </div>
 
 <script>
-    // Update waktu server
     function updateTime() {
         const now = new Date();
         document.getElementById('server-time').innerText = now.toLocaleTimeString('id-ID');
     }
     setInterval(updateTime, 1000);
     updateTime();
+
+    function copyToClipboard(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("URL berhasil disalin: " + text);
+        });
+    }
+
+    // Fungsi untuk membuat contoh URL dinamis (tanpa otomatis mengisi input)
+    function buildExampleUrl(endpoint, params) {
+        let base = `https://vvip-rest-api.vercel.app/api/orderkuota/${endpoint}`;
+        let query = new URLSearchParams(params).toString();
+        return query ? `${base}?${query}` : base;
+    }
+
+    // Update contoh URL ketika user mengetik (tanpa otomatis request)
+    function attachExampleUpdater() {
+        // OTP
+        const otpApi = document.getElementById('otp_apikey');
+        const otpUser = document.getElementById('otp_username');
+        const otpPass = document.getElementById('otp_password');
+        const updateOtpExample = () => {
+            let params = {};
+            if(otpApi.value) params.apikey = otpApi.value;
+            if(otpUser.value) params.username = otpUser.value;
+            if(otpPass.value) params.password = otpPass.value;
+            const url = buildExampleUrl('getotp', params);
+            document.getElementById('otp_example_url').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+        };
+        otpApi.addEventListener('input', updateOtpExample);
+        otpUser.addEventListener('input', updateOtpExample);
+        otpPass.addEventListener('input', updateOtpExample);
+
+        // Token
+        const tokApi = document.getElementById('token_apikey');
+        const tokUser = document.getElementById('token_username');
+        const tokOtp = document.getElementById('token_otp');
+        const updateTokenExample = () => {
+            let params = {};
+            if(tokApi.value) params.apikey = tokApi.value;
+            if(tokUser.value) params.username = tokUser.value;
+            if(tokOtp.value) params.otp = tokOtp.value;
+            const url = buildExampleUrl('gettoken', params);
+            document.getElementById('token_example_url').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+        };
+        tokApi.addEventListener('input', updateTokenExample);
+        tokUser.addEventListener('input', updateTokenExample);
+        tokOtp.addEventListener('input', updateTokenExample);
+
+        // QRIS
+        const qrApi = document.getElementById('qr_apikey');
+        const qrUser = document.getElementById('qr_username');
+        const qrToken = document.getElementById('qr_token');
+        const qrAmount = document.getElementById('qr_amount');
+        const updateQrExample = () => {
+            let params = {};
+            if(qrApi.value) params.apikey = qrApi.value;
+            if(qrUser.value) params.username = qrUser.value;
+            if(qrToken.value) params.token = qrToken.value;
+            if(qrAmount.value) params.amount = qrAmount.value;
+            const url = buildExampleUrl('createpayment', params);
+            document.getElementById('qr_example_url').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+        };
+        qrApi.addEventListener('input', updateQrExample);
+        qrUser.addEventListener('input', updateQrExample);
+        qrToken.addEventListener('input', updateQrExample);
+        qrAmount.addEventListener('input', updateQrExample);
+
+        // Mutasi
+        const mutApi = document.getElementById('mutasi_apikey');
+        const mutUser = document.getElementById('mutasi_username');
+        const mutToken = document.getElementById('mutasi_token');
+        const updateMutasiExample = () => {
+            let params = {};
+            if(mutApi.value) params.apikey = mutApi.value;
+            if(mutUser.value) params.username = mutUser.value;
+            if(mutToken.value) params.token = mutToken.value;
+            const url = buildExampleUrl('mutasiqr', params);
+            document.getElementById('mutasi_example_url').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+        };
+        mutApi.addEventListener('input', updateMutasiExample);
+        mutUser.addEventListener('input', updateMutasiExample);
+        mutToken.addEventListener('input', updateMutasiExample);
+    }
 
     async function callEndpoint(type) {
         let url = '';
@@ -433,20 +557,23 @@
                     break;
             }
 
-            // Tampilkan loading
             document.getElementById(targetId).innerText = '⏳ Mengirim request...';
-            
-            // Panggil API
             const response = await fetch(url);
             const data = await response.json();
-            
-            // Tampilkan response cantik
             document.getElementById(targetId).innerText = JSON.stringify(data, null, 2);
             
         } catch(err) {
             document.getElementById(targetId).innerText = `❌ Error: ${err.message}`;
         }
     }
+
+    // Inisialisasi contoh URL kosong dan event listener
+    attachExampleUpdater();
+    // Set contoh default kosong
+    document.getElementById('otp_example_url').innerHTML = '<a href="#" style="color:#aaa;">-</a>';
+    document.getElementById('token_example_url').innerHTML = '<a href="#" style="color:#aaa;">-</a>';
+    document.getElementById('qr_example_url').innerHTML = '<a href="#" style="color:#aaa;">-</a>';
+    document.getElementById('mutasi_example_url').innerHTML = '<a href="#" style="color:#aaa;">-</a>';
 </script>
 </body>
-</html>
+                    </html>
